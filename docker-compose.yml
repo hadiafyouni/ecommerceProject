@@ -1,0 +1,36 @@
+# Local development stack: Postgres + the API.
+#   docker compose up --build
+# Then run the frontend with `npm run dev` in ./frontend.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      retries: 15
+
+  api:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/ecommerce?sslmode=disable
+      # Development-only secrets; set real ones in production.
+      JWT_SECRET: dev-access-secret-change-me-0123456789
+      JWT_REFRESH_SECRET: dev-refresh-secret-change-me-0123456789
+      CORS_ORIGINS: http://localhost:3000
+      PORT: "8080"
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:

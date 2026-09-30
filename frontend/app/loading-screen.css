@@ -1,0 +1,183 @@
+/* ─── Loading Screen ─────────────────────────────────────── */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.loading-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(45deg, #f97316, #1877f2);
+    transform: translate(-50%, -50%) rotate(0deg);
+    border-radius: 50%;
+    animation: loaderRotate 6s infinite ease-in-out;
+    filter: blur(0.5px);
+    box-shadow:
+        0 0 35px rgba(249, 115, 22, 0.45),
+        0 0 70px rgba(24, 119, 242, 0.3);
+}
+
+.loading-shape::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.35), rgba(24, 119, 242, 0.35));
+    transform: translate(-50%, -50%) scale(1.2);
+    border-radius: 50%;
+    filter: blur(12px);
+    z-index: -1;
+    animation: loaderGlow 3s infinite ease-in-out;
+}
+
+.loading-particles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 280px;
+    height: 280px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: loaderSpin 12s linear infinite;
+}
+
+.loading-particle {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: #f97316;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.85;
+    animation: loaderParticle 5s infinite ease-in-out;
+}
+
+.loading-particle:nth-child(1) {
+    top: 20%;
+    left: 40%;
+    animation-delay: 0.5s;
+    background: #38d9f9;
+}
+
+.loading-particle:nth-child(2) {
+    top: 60%;
+    left: 20%;
+    animation-delay: 1s;
+    background: #f97316;
+}
+
+.loading-particle:nth-child(3) {
+    top: 80%;
+    left: 70%;
+    animation-delay: 1.5s;
+    background: #1877f2;
+}
+
+.loading-particle:nth-child(4) {
+    top: 40%;
+    left: 90%;
+    animation-delay: 2s;
+    background: #fb923c;
+}
+
+.loading-particle:nth-child(5) {
+    top: 15%;
+    left: 60%;
+    animation-delay: 2.5s;
+    background: #63a4ff;
+}
+
+.loading-label {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f97316, #1877f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.05em;
+    animation: loaderFade 2s infinite ease-in-out;
+}
+
+@keyframes loaderRotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+        border-radius: 50%;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg);
+        border-radius: 12%;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+        border-radius: 50%;
+    }
+}
+
+@keyframes loaderGlow {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.55);
+        opacity: 1;
+    }
+}
+
+@keyframes loaderSpin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes loaderParticle {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.85;
+    }
+
+    50% {
+        transform: translate(28px, -28px) scale(1.5);
+        opacity: 1;
+    }
+}
+
+@keyframes loaderFade {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
